@@ -17,12 +17,11 @@ save(X,Y) :- assertz(positive(X,Y)).
 
 clear_all :- retractall(positive(_,_)).
 
-greeting :- write('Welcome to Music Expert System! I hope I\'ll help you find the best tracks for you.\n'), 
+greeting :- write('Welcome to Track Advisor! I hope I\'ll help you find the best tracks for you.\n'), 
             nl.
                     
 run :- greeting,
-     mood_def(M),
-     mood_is(X),
+	 findall(mood_is(M), mood_def(M), L),
      category_def(C, X),
      category_is(Y),
      track(X, Y, Z), !,
@@ -30,7 +29,7 @@ run :- greeting,
             nl, clear_all,
     halt(0).
             
-run :- write('I am not able to gues your mood'), nl,
+run :- write('I am not able to guess your mood'), nl,
             clear_all,
     halt(0).
 
