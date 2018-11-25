@@ -46,5 +46,12 @@ category_def(rock, X) :- category(X, rock),
 category_def(rock, X) :- category(X, rock),
               ask('Do you like electric guitars?'),
               save(category, electric_guitars).
+							
+category_get_all(L2) :- findall(C, category_is(C), L2).		
+			
+category_save_all([]).
+category_save_all([H|T]) :- findall(X, category_def(C, H), R),
+							category_save_all(T).
+						
 
 

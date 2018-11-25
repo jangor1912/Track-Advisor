@@ -6,7 +6,9 @@
 :- include(categories).
 :- include(moods).
 
-ask(X) :- !, format('~w (y/n)~n',[X]),
+ask(X) :- not(positive(question, X)),
+		  save(question, X),
+		  !, format('~w (y/n)~n',[X]),
                     get_single_char(Reply),
                     put_code(Reply), 
                     nl,
@@ -19,18 +21,16 @@ clear_all :- retractall(positive(_,_)).
 
 greeting :- write('Welcome to Track Advisor! I hope I\'ll help you find the best tracks for you.\n'), 
             nl.
-                    
+  
 run :- greeting,
-	 findall(mood_is(M), mood_def(M), L),
-     category_def(C, X),
-     category_is(Y),
-     track(X, Y, Z), !,
-            format('~nMusic for you = ~w', Z),
-            nl, clear_all,
-    halt(0).
+	 mood_save_all(),
+	 mood_get_all(Moods),
+	 category_save_all(Moods),
+     track_get_all(Tracks),
+	 track_print_all(Tracks),
+            nl, clear_all.
             
 run :- write('I am not able to guess your mood'), nl,
-            clear_all,
-    halt(0).
+            clear_all.
 
 :- run.

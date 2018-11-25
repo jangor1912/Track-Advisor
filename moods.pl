@@ -75,3 +75,8 @@ mood_def(thinking_about_love) :- ask('Do you think about love?'),
 
 mood_def(crush) :- ask('Have you fallen in love recently?'),
         save(mood, crush).
+
+mood_get_all(L1) :- findall(M, mood_is(M), L1).
+		
+mood_save_all() :- findall(X, mood_def(M), R).
+					 
