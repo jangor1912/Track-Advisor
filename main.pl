@@ -5,15 +5,13 @@
 :- include(tracks).
 :- include(categories).
 :- include(moods).
+:- include(anwsers).
 
-ask(X) :- not(positive(question, X)),
+ask(X, Y) :- not(positive(question, X)),
 		  save(question, X),
 		  !, format('~w (y/n)~n',[X]),
-                    get_single_char(Reply),
-                    put_code(Reply), 
-                    nl,
-                    char_code(Char, Reply),
-                    (Char = 'y').
+          read_anwser(Y).
+
                     
 save(X,Y) :- assertz(positive(X,Y)).
 
