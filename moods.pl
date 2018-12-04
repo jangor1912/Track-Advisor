@@ -37,10 +37,5 @@ mood_get_all(L1) :- findall(M, mood_is(M), L1).
 mood_save_all() :- findall(X, mood_def(M), R).
 					 
 
-read_anwser(X) :- get_single_char(Reply),
-                    put_code(Reply), 
-                    nl,
-                    char_code(Char, Reply),
-                    get_anwser(X, Char).
 
    

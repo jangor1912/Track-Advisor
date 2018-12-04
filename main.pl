@@ -7,6 +7,8 @@
 :- include(moods).
 :- include(anwsers).
 
+
+
 ask(X, Y) :- not(positive(question, X)),
 		  save(question, X),
 		  !, format('~w (y/n)~n',[X]),
@@ -14,6 +16,12 @@ ask(X, Y) :- not(positive(question, X)),
 
                     
 save(X,Y) :- assertz(positive(X,Y)).
+
+read_anwser(X) :- get_single_char(Reply),
+                    put_code(Reply), 
+                    nl,
+                    char_code(Char, Reply),
+                    get_anwser(X, Char).
 
 clear_all :- retractall(positive(_,_)).
 
